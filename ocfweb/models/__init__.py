@@ -1,1 +1,1 @@
-from ocfweb.models.doc import Document
+from ocfweb.models.doc import Document  # noqa

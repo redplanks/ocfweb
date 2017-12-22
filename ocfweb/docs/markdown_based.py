@@ -65,5 +65,5 @@ def get_markdown_docs():
         yield Document(
             name='/' + name,
             title=meta['title'],
-            render=partial(render_markdown_doc, path, meta, text),
+            render=partial(render_markdown_doc, path, meta, text).save(),
         )
