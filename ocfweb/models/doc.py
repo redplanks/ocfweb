@@ -1,9 +1,12 @@
-from collections import namedtuple
-
 from cached_property import cached_property
+from django.db import models
 
 
-class Document(namedtuple('Document', ['name', 'title', 'render'])):
+class Document(models.Model):
+
+    name = models.TextField()
+    title = models.TextField()
+    render = models.TextField()
 
     @cached_property
     def category(self):

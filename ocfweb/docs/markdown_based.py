@@ -21,7 +21,7 @@ from django.shortcuts import render
 
 from ocfweb.component.markdown import markdown_and_toc
 from ocfweb.component.markdown import text_and_meta
-from ocfweb.docs.doc import Document
+from ocfweb.models.doc import Document
 
 
 DOCS_DIR = Path(__file__).parent.joinpath('docs')
@@ -59,7 +59,8 @@ def get_markdown_docs():
             text, meta = text_and_meta(f)
 
         if 'title' not in meta:
-            raise ValueError('Document {} lacks required title meta variable.'.format(name))
+            raise ValueError(
+                'Document {} lacks required title meta variable.'.format(name))
 
         yield Document(
             name='/' + name,
