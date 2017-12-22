@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect
 
-from ocfweb.docs.doc import Document
+from ocfweb.models.doc import Document
 from ocfweb.docs.markdown_based import get_markdown_docs
 from ocfweb.docs.views.account_policies import account_policies
 from ocfweb.docs.views.commands import commands
@@ -22,13 +22,19 @@ DOCS = {
     doc.name: doc
     for doc in chain(
         [
-            Document(name='/about/officers', title='Officers', render=officers),
-            Document(name='/staff/backend/servers', title='Servers', render=servers),
-            Document(name='/staff/backend/stretch', title='Debian Stretch upgrade', render=stretch_upgrade),
-            Document(name='/services/account/account-policies', title='Account policies', render=account_policies),
-            Document(name='/services/vhost/badges', title='Hosting badges', render=hosting_badges),
+            Document(name='/about/officers',
+                     title='Officers', render=officers),
+            Document(name='/staff/backend/servers',
+                     title='Servers', render=servers),
+            Document(name='/staff/backend/stretch',
+                     title='Debian Stretch upgrade', render=stretch_upgrade),
+            Document(name='/services/account/account-policies',
+                     title='Account policies', render=account_policies),
+            Document(name='/services/vhost/badges',
+                     title='Hosting badges', render=hosting_badges),
             Document(name='/services/lab', title='Computer lab', render=lab),
-            Document(name='/services/shell/commands', title='Command reference', render=commands),
+            Document(name='/services/shell/commands',
+                     title='Command reference', render=commands),
         ],
         get_markdown_docs(),
     )
@@ -56,7 +62,8 @@ def send_redirect(request, redir_src):
 
 def doc_name(doc_name):
     # we can't actually deal with escaping into a regex, so we just use a whitelist
-    assert re.match(r'^/[a-zA-Z0-9\-/]+$', doc_name), 'Bad document name: ' + doc_name
+    assert re.match(r'^/[a-zA-Z0-9\-/]+$',
+                    doc_name), 'Bad document name: ' + doc_name
     return doc_name[1:].replace('-', '\-')
 
 
